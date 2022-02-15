@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-const Accommodation = require("../models/Accommodation")
+const Comment = require("../models/Comment")
 
 //CREATE POST
 router.post("/", async (req, res) => {
-  const newPost = new Accommodation(req.body);
+  const newPost = new Comment(req.body);
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
@@ -17,10 +17,10 @@ router.post("/", async (req, res) => {
 //UPDATE POST
 router.put("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await Comment.findById(req.params.id);
     if (post.username === req.body.username) {
       try {
-        const updatedPost = await Accommodation.findByIdAndUpdate(
+        const updatedPost = await Comment.findByIdAndUpdate(
           req.params.id,
           {
             $set: req.body,
@@ -42,7 +42,7 @@ router.put("/:id", async (req, res) => {
 //DELETE POST
 router.delete("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await Comment.findById(req.params.id);
     if (post.username === req.body.username) {
       try {
         await post.delete();
@@ -61,7 +61,7 @@ router.delete("/:id", async (req, res) => {
 //GET POST
 router.get("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await Comment.findById(req.params.id);
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
@@ -70,31 +70,22 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
-  const userId = req.query.userId;
-  const filter = req.query.location;
-  // console.log(req)
-  // console.log(res)
+  const username = req.query.user;
+  const filter = req.query.postID;  
   try {
     let posts;
-    if (userId) {
-      posts = await Accommodation.find({
-        userId:{
-          $in: [userId] 
-        }
-      });
+    if (username) {
+      posts = await Comment.find({ username });
     } 
     else if (filter) {
-      // console.log(req)
-      posts = await Accommodation.find({
-        location: {
+      posts = await Comment.find({
+        postID: {
           $in: [filter],
         }, 
       }
       );
-    }
-     else {
-      posts = await Accommodation.find();
-      // console.log(req)
+    } else {
+      posts = await Comment.find();
     }
     res.status(200).json(posts);
   } catch (err) {

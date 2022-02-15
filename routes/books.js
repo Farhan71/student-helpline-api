@@ -70,19 +70,28 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
-  const username = req.query.user;
-  const catName = req.query.cat;
+  const userId = req.query.userId;
+  const filter = req.query.location;
   try {
     let posts;
-    if (username) {
-      posts = await User.find({ username });
-    } else if (catName) {
+    if (userId) {
       posts = await Book.find({
-        categories: {
-          $in: [catName],
-        },
+        userId:{
+          $in: [userId] 
+        }
       });
-    } else {
+    } 
+    
+    else if (filter) {
+      posts = await Book.find({
+        location: {
+          $in: [filter],
+        }, 
+      }
+      );
+    } 
+    
+    else {
       posts = await Book.find();
     }
     res.status(200).json(posts);

@@ -8,7 +8,7 @@ const PostSchema = new mongoose.Schema(
     },
     startUpType: {
       type: String,
-      required: true,
+      required: false,
     },
     productType: {
       type: String,
@@ -17,16 +17,16 @@ const PostSchema = new mongoose.Schema(
 
     locationRange: {
       type: String,
-      required: true,
+      required: false,
     },
 
     quantity: {
       type: Number,
-      required: true,
+      required: false,
   },
   price: {
       type: Number,
-      required: true,
+      required: false,
   },
   contact: {
       type: Number,
@@ -44,8 +44,12 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Entrepreneur", PostSchema);

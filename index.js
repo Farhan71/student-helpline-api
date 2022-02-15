@@ -7,6 +7,12 @@ const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const accommodationRoute = require("./routes/accommodations")
 const bookRoute = require("./routes/books")
+const bloodRoute = require("./routes/blood")
+const reportsRoute = require("./routes/reports")
+const entrepreneurRoute = require("./routes/entrepreneur")
+const otherThingsRoute = require("./routes/otherThings")
+const commentRoute = require("./routes/comment")
+const validUsersRoute = require("./routes/validUsers")
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
@@ -45,6 +51,12 @@ app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 app.use("/api/accommodations",accommodationRoute)
 app.use("/api/books",bookRoute)
+app.use("/api/entrepreneur",entrepreneurRoute)
+app.use ("/api/otherThings",otherThingsRoute)
+app.use("/api/blood",bloodRoute)
+app.use("/api/reports",reportsRoute)
+app.use("/api/comment", commentRoute)
+app.use("/api/validUsers", validUsersRoute)
 
 app.listen("5000", () => {
   console.log("Backend is running.");

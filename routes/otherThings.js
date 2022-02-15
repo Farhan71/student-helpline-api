@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-const Accommodation = require("../models/Accommodation")
+const OtherThings = require("../models/OtherThings")
 
 //CREATE POST
 router.post("/", async (req, res) => {
-  const newPost = new Accommodation(req.body);
+  const newPost = new OtherThings(req.body);
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
@@ -17,10 +17,10 @@ router.post("/", async (req, res) => {
 //UPDATE POST
 router.put("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await OtherThings.findById(req.params.id);
     if (post.username === req.body.username) {
       try {
-        const updatedPost = await Accommodation.findByIdAndUpdate(
+        const updatedPost = await OtherThings.findByIdAndUpdate(
           req.params.id,
           {
             $set: req.body,
@@ -42,7 +42,7 @@ router.put("/:id", async (req, res) => {
 //DELETE POST
 router.delete("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await OtherThings.findById(req.params.id);
     if (post.username === req.body.username) {
       try {
         await post.delete();
@@ -61,7 +61,7 @@ router.delete("/:id", async (req, res) => {
 //GET POST
 router.get("/:id", async (req, res) => {
   try {
-    const post = await Accommodation.findById(req.params.id);
+    const post = await OtherThings.findById(req.params.id);
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
@@ -72,29 +72,27 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
   const filter = req.query.location;
-  // console.log(req)
-  // console.log(res)
   try {
     let posts;
     if (userId) {
-      posts = await Accommodation.find({
+      posts = await OtherThings.find({
         userId:{
           $in: [userId] 
         }
       });
     } 
+    
     else if (filter) {
-      // console.log(req)
-      posts = await Accommodation.find({
+      posts = await OtherThings.find({
         location: {
           $in: [filter],
         }, 
       }
       );
     }
-     else {
-      posts = await Accommodation.find();
-      // console.log(req)
+    
+    else {
+      posts = await OtherThings.find();
     }
     res.status(200).json(posts);
   } catch (err) {

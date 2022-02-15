@@ -30,6 +30,10 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
     contact: {
         type: Number,
         required: true,
@@ -38,4 +42,4 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Blood", PostSchema);

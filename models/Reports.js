@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-const AccomodationSchema = new mongoose.Schema(
+const ReportsSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     desc: {
       type: String,
@@ -19,8 +18,12 @@ const AccomodationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Reports", ReportsSchema);
