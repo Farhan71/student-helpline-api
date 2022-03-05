@@ -71,7 +71,7 @@ router.get("/:id", async (req, res) => {
 //GET ALL POSTS
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
-  const filter = req.query.location;
+  const filter = req.query.department;
   try {
     let posts;
     if (userId) {
@@ -84,7 +84,7 @@ router.get("/", async (req, res) => {
     
     else if (filter) {
       posts = await Book.find({
-        location: {
+        department: {
           $in: [filter],
         }, 
       }

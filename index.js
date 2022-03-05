@@ -12,6 +12,7 @@ const reportsRoute = require("./routes/reports")
 const entrepreneurRoute = require("./routes/entrepreneur")
 const otherThingsRoute = require("./routes/otherThings")
 const commentRoute = require("./routes/comment")
+const contactRoute = require("./routes/contact")
 const validUsersRoute = require("./routes/validUsers")
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
@@ -57,6 +58,7 @@ app.use("/api/blood",bloodRoute)
 app.use("/api/reports",reportsRoute)
 app.use("/api/comment", commentRoute)
 app.use("/api/validUsers", validUsersRoute)
+app.use("/api/contact",contactRoute)
 
 app.listen("5000", () => {
   console.log("Backend is running.");

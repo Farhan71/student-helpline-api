@@ -71,7 +71,7 @@ router.get("/:id", async (req, res) => {
 //GET ALL POSTS
 router.get("/", async (req, res) => {
   const userId = req.query.userId;
-  const filter = req.query.location;
+  const filter = req.query.group;
   try {
     let posts;
     if (userId) {
@@ -84,9 +84,9 @@ router.get("/", async (req, res) => {
     
     else if (filter) {
       posts = await Blood.find({
-        location: {
-          $in: [filter],
-        }, 
+        group: {
+          $in: [filter]
+        }
       }
       );
     }

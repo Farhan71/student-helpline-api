@@ -1,7 +1,14 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const Post = require("../models/Post");
+const Accommodation = require("../models/Accommodation");
+const Blood = require("../models/Blood")
+const Book = require("../models/Book")
+const Entrepreneur = require("../models/Entrepreneur")
+const Reports = require("../models/Reports")
+const OtherThings = require("../models/OtherThings")
+const Comment = require("../models/Comment")
 const bcrypt = require("bcrypt");
+
 
 //UPDATE
 router.put("/:id", async (req, res) => {
@@ -19,7 +26,8 @@ router.put("/:id", async (req, res) => {
         { new: true }
       );
       res.status(200).json(updatedUser);
-    } catch (err) {
+    }
+     catch (err) {
       res.status(500).json(err);
     }
   } else {
@@ -33,7 +41,13 @@ router.delete("/:id", async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       try {
-        await Post.deleteMany({ username: user.username });
+        await Accommodation.deleteMany({ userId: user._id });
+        await Book.deleteMany({ userId: user._id });
+        await Blood.deleteMany({ userId: user._id });
+        await OtherThings.deleteMany({ userId: user._id });
+        await Reports.deleteMany({ userId: user._id });
+        await Entrepreneur.deleteMany({ userId: user._id });
+        await Comment.deleteMany({ userId: user._id }); 
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User has been deleted...");
       } catch (err) {
@@ -70,3 +84,4 @@ router.get("/", async (req, res) => {
   }
 });
 module.exports = router;
+ 
