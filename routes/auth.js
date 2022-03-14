@@ -56,14 +56,17 @@ router.post ("/register/verifyOTP", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email});
-    !user && res.status(400).json("Wrong credentials!");
+    // const user = await User.findOne({ email: req.body.email});
+
+    // const user = await User.findOne({ $and: [ { email: req.body.email}, { verified: "true"} ] })
+   const user = await User.findOne({ $and: [  { verified: "true"} , { email: req.body.email}] })
+    !user && res.status(400).json("Wrong credentials!"); 
 
     const validated = await bcrypt.compare(req.body.password, user.password);
     !validated && res.status(400).json("Wrong credentials!");
 
     const { password, ...others } = user._doc;
-    const token = user.generateAuthToken();
+    // const token = user.generateAuthToken();
     res.status(200).json(others);
     // res.status(200).send({ data: token, message: "logged in successfully" });
   } catch (err) {

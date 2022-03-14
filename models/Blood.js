@@ -34,6 +34,10 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    photo: {
+      type: String,
+      required: false,
+    },
     contact: {
         type: Number,
         required: true,

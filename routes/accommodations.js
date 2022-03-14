@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
     } else {
       res.status(401).json("You can delete only your post!");
     }
-  } catch (err) {
+  } catch (err) {b
     res.status(500).json(err);
   }
 });
@@ -81,7 +81,7 @@ router.get("/", async (req, res) => {
         userId:{
           $in: [userId] 
         }
-      });
+      }).sort({createdAt:-1});
     } 
     else if (filter) {
       // console.log(req)
@@ -90,10 +90,10 @@ router.get("/", async (req, res) => {
           $in: [filter],
         }, 
       }
-      );
+      ).sort({createdAt:-1});
     }
      else {
-      posts = await Accommodation.find();
+      posts = await Accommodation.find().sort({createdAt:-1});
       // console.log(req)
     }
     res.status(200).json(posts);

@@ -79,7 +79,7 @@ router.get("/", async (req, res) => {
         userId:{
           $in: [userId] 
         }
-      });
+      }).sort({createdAt:-1});
     }
     
     else if (filter) {
@@ -88,11 +88,11 @@ router.get("/", async (req, res) => {
           $in: [filter],
         }, 
       }
-      );
+      ).sort({createdAt:-1});
     } 
     
     else {
-      posts = await Reports.find();
+      posts = await Reports.find().sort({createdAt:-1});
     }
     res.status(200).json(posts);
   } catch (err) {

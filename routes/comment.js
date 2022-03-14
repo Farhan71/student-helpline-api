@@ -72,7 +72,7 @@ router.get("/:id", async (req, res) => {
 //GET POST count
 router.get("/:id/count", async (req, res) => {
   try {
-    const post = await Comment.count({ postID: {$in:[req.params.id]}});
+    const post = await Comment.countDocuments({ postID: {$in:[req.params.id]}});
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
